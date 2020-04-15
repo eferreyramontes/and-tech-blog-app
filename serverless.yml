@@ -56,16 +56,22 @@ provider:
 
 functions:
   hello:
-    handler: handler.hello
+    handler: handler.createPost
     events:
       - http:
-          path: hello
-          method: get
+          path: create-post
+          method: post
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:UpdateItem
+          - dynamodb:PutItem
+        Resource:
+          - arn:aws:dynamodb:#{AWS::Region}:#{AWS::AccountId}:table/posts
 
 resources:
   # DynamoDB
   - ${file(resources/dynamodb-post-table.yml)}
-
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details

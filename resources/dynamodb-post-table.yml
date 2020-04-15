@@ -2,7 +2,7 @@ Resources:
   postsTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: Posts
+      TableName: posts
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S

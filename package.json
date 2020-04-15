@@ -1,0 +1,31 @@
+{
+  "name": "and-tech-blog-app",
+  "version": "1.0.0",
+  "description": "AND Digital Tech Blog Backend",
+  "main": "handler.js",
+  "dependencies": {
+    "dynamodb": "^1.2.1",
+    "joi": "^14.3.1",
+    "uuid": "^7.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eferreyramontes/and-tech-blog-app.git"
+  },
+  "keywords": [
+    "AND",
+    "Digital",
+    "Tech",
+    "Blog"
+  ],
+  "author": "Emmanuel Montes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eferreyramontes/and-tech-blog-app/issues"
+  },
+  "homepage": "https://github.com/eferreyramontes/and-tech-blog-app#readme"
+}
