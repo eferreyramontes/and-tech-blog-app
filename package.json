@@ -6,6 +6,7 @@
   "dependencies": {
     "dynamodb": "^1.2.1",
     "joi": "^14.3.1",
+    "serverless-pseudo-parameters": "^2.5.0",
     "uuid": "^7.0.3"
   },
   "devDependencies": {},

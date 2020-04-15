@@ -17,9 +17,19 @@ service: and-tech-blog-app # NOTE: update this with your service name
 # Check out our docs for more details
 # frameworkVersion: "=X.X.X"
 
+plugins:
+  - serverless-pseudo-parameters
+
 provider:
   name: aws
   runtime: nodejs12.x
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:UpdateItem
+        - dynamodb:PutItem
+      Resource:
+        - arn:aws:dynamodb:#{AWS::Region}:#{AWS::AccountId}:table/posts
 
 # you can overwrite defaults here
 #  stage: dev
@@ -61,13 +71,6 @@ functions:
       - http:
           path: create-post
           method: post
-    iamRoleStatements:
-      - Effect: Allow
-        Action:
-          - dynamodb:UpdateItem
-          - dynamodb:PutItem
-        Resource:
-          - arn:aws:dynamodb:#{AWS::Region}:#{AWS::AccountId}:table/posts
 
 resources:
   # DynamoDB

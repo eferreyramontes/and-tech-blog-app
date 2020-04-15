@@ -11,7 +11,7 @@ const Post = dynamo.define('Post', {
   timestamps: true,
 
   schema: {
-    id: Joi.string().required(),
+    id: Joi.string(),
     title: Joi.string().min(2).max(70).required(),
     path: Joi.string().required(),
     icon: Joi.string().required(),
@@ -21,17 +21,10 @@ const Post = dynamo.define('Post', {
 });
 
 module.exports.createPost = async (event, context) => {
-  console.log(`Request iniciated with event: ${JSON.stringify(event)}`);
-
   try {
-    const post = new Post({
-      id: uuid.v4(),
-      title: 'Testing a new post with Serverless',
-      path: 'testing-a-new-post-with-serverless',
-      icon: 'java',
-      status: 'CREATED',
-      content: 'Today, we are excited to announce the limited preview...'
-    });
+    const postObject = JSON.parse(event.body);
+    postObject.id = uuid.v4();
+    const post = new Post(postObject);
     await post.save();
     console.log('created post in DynamoDB', post.get('title'))
     return {
