@@ -26,10 +26,19 @@ provider:
   iamRoleStatements:
     - Effect: Allow
       Action:
-        - dynamodb:UpdateItem
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
         - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
       Resource:
         - arn:aws:dynamodb:#{AWS::Region}:#{AWS::AccountId}:table/posts
+    - Effect: Allow
+      Action:
+        - dynamodb:ListTables
+      Resource:
+        - arn:aws:dynamodb:#{AWS::Region}:#{AWS::AccountId}:table/*
 
 # you can overwrite defaults here
 #  stage: dev
@@ -65,12 +74,18 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  hello:
+  createPost:
     handler: handler.createPost
     events:
       - http:
           path: create-post
           method: post
+  listPosts:
+    handler: handler.listPosts
+    events:
+      - http:
+          path: list-posts
+          method: get
 
 resources:
   # DynamoDB

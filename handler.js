@@ -7,8 +7,7 @@ const uuid = require('uuid');
 const Post = dynamo.define('Post', {
   hashKey: 'id',
 
-  // add the timestamp attributes (updatedAt, createdAt)
-  timestamps: true,
+  timestamps: true, // (updatedAt, createdAt)
 
   schema: {
     id: Joi.string(),
@@ -44,7 +43,27 @@ module.exports.createPost = async (event, context) => {
       }),
     };
   }
-
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
 };
+
+module.exports.listPosts = async (event, context) => {
+  try {
+    const posts = await Post.scan().loadAll().exec().promise();
+    console.log(`Posts loaded: ${JSON.stringify(posts)}`);
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        message: 'Post listed successfully',
+        posts: posts
+      }),
+    };
+  } catch (err) {
+    console.log('There was an error trying to list posts', err)
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        message: 'Something went wrong!',
+        error: err
+      }),
+    };
+  }
+}

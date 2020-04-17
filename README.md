@@ -14,3 +14,15 @@ serverless create --template aws-nodejs --path and-tech-blog-app
 ```bash
 serverless config credentials -o --provider aws --key <YOUR_KEY> --secret <YOUR_SECRET>
 ```
+
+3. Then you can deploy your stack as many times as you want with:
+
+```bash
+serverless deploy
+```
+
+4. And destroy the stack with:
+
+```bash
+serverless remove -v
+```
