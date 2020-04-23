@@ -80,12 +80,14 @@ functions:
       - http:
           path: create-post
           method: post
+          cors: true
   listPosts:
     handler: handler.listPosts
     events:
       - http:
           path: list-posts
           method: get
+          cors: true
 
 resources:
   # DynamoDB
